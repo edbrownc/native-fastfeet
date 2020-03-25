@@ -6,38 +6,24 @@ import {signInSuccess, signFailure} from './actions';
 
 export function* signIn({payload}) {
   try {
-    const {email, password} = payload;
+    const {courierId} = payload;
 
-    const response = yield call(api.post, 'sessions', {email, password});
+    const response = yield call(api.get, `couriers/${courierId}`);
 
-    const {token, user} = response.data;
+    const courier = response.data;
 
-    if (!user.isAdmin) {
-      Alert.alert('Sign in error', 'User not an admin');
+    if (!courier) {
+      Alert.alert('Sign in error', 'Courier ID not found');
+
+      yield put(signFailure());
       return;
     }
 
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-
-    yield put(signInSuccess(token, user));
-
-    // history.push('/orders');
+    yield put(signInSuccess(courier));
   } catch (error) {
-    Alert.alert('Authentication failed', 'Llease check your credentials');
+    Alert.alert('Authentication failed', 'Please check your ID');
 
     yield put(signFailure());
   }
 }
-
-export function setToken({payload}) {
-  if (!payload) return;
-
-  const {token} = payload.auth;
-
-  api.defaults.headers.Authorization = `Bearer ${token}`;
-}
-
-export default all([
-  takeLatest('persist/REHYDRATE', setToken),
-  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
-]);
+export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
