@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
+import {format} from 'date-fns';
 import {
   Container,
   Avatar,
@@ -35,7 +36,7 @@ export default function Profile() {
         <Title>Email</Title>
         <Text>{courier.email}</Text>
         <Title>Sign up date</Title>
-        <Text>{courier.createdAt}</Text>
+        <Text>{format(new Date(courier.createdAt), 'dd/MM/yyyy')}</Text>
       </ProfileInfo>
       <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
     </Container>

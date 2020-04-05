@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -20,10 +19,10 @@ export default function createRouter(isSigned = false) {
   ) : (
     <Tabs.Navigator
       tabBarOptions={{
-        activeTintColor: '#FFF',
-        inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
+        activeTintColor: '#7D40E7',
+        inactiveTintColor: '#999',
         style: {
-          backgroundColor: '#8d41a8',
+          backgroundColor: '#FFF',
         },
         keyboardHidesTabBar: true,
       }}>
@@ -33,7 +32,7 @@ export default function createRouter(isSigned = false) {
         options={{
           tabBarLabel: 'Deliveries',
           tabBarIcon: ({color}) => (
-            <Icon name="reorder" size={20} color={color} />
+            <Icon name="reorder" size={24} color={color} />
           ),
         }}
       />
@@ -43,7 +42,7 @@ export default function createRouter(isSigned = false) {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color}) => (
-            <Icon name="account-circle" size={20} color={color} />
+            <Icon name="account-circle" size={24} color={color} />
           ),
         }}
       />
