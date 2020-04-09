@@ -114,7 +114,7 @@ export default function Deliveries({navigation}) {
               start_date={item.start_date}
               end_date={item.end_date}
               onClickDetails={() =>
-                navigation.navigate('DeliveryDetails', {
+                navigation.navigate('DeliveryInfo', {
                   delivery: item,
                 })
               }

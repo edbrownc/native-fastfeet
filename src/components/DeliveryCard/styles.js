@@ -32,7 +32,7 @@ export const CurrentStatusView = styled.View`
   border-radius: 180px;
   height: 9px;
   width: 9px;
-  background-color: ${props => (props.active ? '#7D40E7' : 'white')};
+  background-color: ${props => (props.active ? '#7D40E7' : '#FFF')};
 `;
 
 export const StatusBar = styled.View`
