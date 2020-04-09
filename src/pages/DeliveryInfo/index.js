@@ -5,15 +5,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Container,
-  InfoCard,
-  StatusCard,
+  InfoContainer,
+  StatusContainer,
   InfoTitleView,
   Title,
   DeliveryInfoContainer,
   InfoLabel,
   InfoText,
   DatesContainer,
-  ActionsCard,
+  ActionsContainer,
   ActionButton,
   ActionButtonText,
 } from './styles';
@@ -22,10 +22,14 @@ import DeliveriesBackground from '~/components/DeliveriesBackground';
 export default function DeliverInfo({navigation, route}) {
   const {delivery} = route.params;
 
+  function getFormattedDate(date) {
+    return date ? format(new Date(date), 'dd/MM/yyyy') : '- - / - - / - -';
+  }
+
   return (
     <DeliveriesBackground>
       <Container>
-        <InfoCard>
+        <InfoContainer>
           <InfoTitleView>
             <Icon name="local-shipping" size={20} style={{color: '#7D40E7'}} />
             <Title>Delivery info</Title>
@@ -46,8 +50,8 @@ export default function DeliverInfo({navigation, route}) {
             <InfoLabel>PRODUCT</InfoLabel>
             <InfoText>{delivery.product}</InfoText>
           </DeliveryInfoContainer>
-        </InfoCard>
-        <StatusCard>
+        </InfoContainer>
+        <StatusContainer>
           <InfoTitleView>
             <Icon name="event" size={20} style={{color: '#7D40E7'}} />
             <Title>Delivery status</Title>
@@ -59,30 +63,25 @@ export default function DeliverInfo({navigation, route}) {
           <DatesContainer>
             <DeliveryInfoContainer>
               <InfoLabel>PICKED UP</InfoLabel>
-              <InfoText>
-                {delivery.start_date
-                  ? format(new Date(delivery.start_date), 'dd/MM/yyyy')
-                  : '- - / - - / - -'}
-              </InfoText>
+              <InfoText>{getFormattedDate(delivery.start_date)}</InfoText>
             </DeliveryInfoContainer>
             <DeliveryInfoContainer>
               <InfoLabel>DELIVERED</InfoLabel>
-              <InfoText>
-                {delivery.end_date
-                  ? format(new Date(delivery.end_date), 'dd/MM/yyyy')
-                  : '- - / - - / - -'}
-              </InfoText>
+              <InfoText>{getFormattedDate(delivery.end_date)}</InfoText>
             </DeliveryInfoContainer>
           </DatesContainer>
-        </StatusCard>
-        <ActionsCard>
-          <ActionButton>
+        </StatusContainer>
+        <ActionsContainer>
+          <ActionButton
+            onPress={() =>
+              navigation.navigate('ReportIssues', {id: delivery.id})
+            }>
             <Icon name="highlight-off" size={20} style={{color: '#E74040'}} />
-            <ActionButtonText>Inform Issue</ActionButtonText>
+            <ActionButtonText>Report Issue</ActionButtonText>
           </ActionButton>
           <ActionButton
             onPress={() =>
-              navigation.navigate('DeliveryProblems', {id: delivery.id})
+              navigation.navigate('DeliveryIssues', {id: delivery.id})
             }>
             <Icon name="info-outline" size={20} style={{color: '#E7BA40'}} />
             <ActionButtonText>View Issues</ActionButtonText>
@@ -91,7 +90,7 @@ export default function DeliverInfo({navigation, route}) {
             <Icon name="alarm-on" size={20} style={{color: '#7D40E7'}} />
             <ActionButtonText>Confirm Delivery</ActionButtonText>
           </ActionButton>
-        </ActionsCard>
+        </ActionsContainer>
       </Container>
     </DeliveriesBackground>
   );
@@ -113,7 +112,7 @@ DeliverInfo.propTypes = {
         recipient: PropTypes.shape({
           name: PropTypes.string,
           street: PropTypes.string,
-          number: PropTypes.string,
+          number: PropTypes.number,
           additional_address: PropTypes.string,
           state: PropTypes.string,
           city: PropTypes.string,

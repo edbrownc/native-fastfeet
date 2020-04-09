@@ -8,12 +8,14 @@ import SignIn from '~/pages/SignIn';
 import Deliveries from './pages/Deliveries';
 import Profile from './pages/Profile';
 import DeliveryInfo from './pages/DeliveryInfo';
+import DeliveryIssues from './pages/DeliveryIssues';
+import ReportIssues from './pages/ReportIssues';
 
 const AuthStack = createStackNavigator();
 const DeliveryStack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
-function DeliveriesDashboard() {
+function DeliveriesNavigator() {
   return (
     <DeliveryStack.Navigator
       initialRouteName="Deliveries"
@@ -35,21 +37,20 @@ function DeliveriesDashboard() {
         component={DeliveryInfo}
         options={{title: 'Delivery info'}}
       />
-      {/*
       <DeliveryStack.Screen
-        name="ReportProblem"
-        component={ReportProblem}
-        options={{title: 'Informar problema'}}
+        name="ReportIssues"
+        component={ReportIssues}
+        options={{title: 'Report issue'}}
       />
       <DeliveryStack.Screen
-        name="DeliveryProblems"
-        component={DeliveryProblems}
-        options={{title: 'Visualizar problemas'}}
+        name="DeliveryIssues"
+        component={DeliveryIssues}
+        options={{title: 'View issues'}}
       />
-      <DeliveryStack.Screen
+      {/* <DeliveryStack.Screen
         name="ConfirmDelivery"
         component={ConfirmDelivery}
-        options={{title: 'Confirmar entrega'}}
+        options={{title: 'Confirm delivery'}}
       /> */}
     </DeliveryStack.Navigator>
   );
@@ -72,7 +73,7 @@ export default function createRouter(isSigned = false) {
       }}>
       <Tabs.Screen
         name="Deliveries"
-        component={DeliveriesDashboard}
+        component={DeliveriesNavigator}
         options={{
           tabBarLabel: 'Deliveries',
           tabBarIcon: ({color}) => (
@@ -84,7 +85,7 @@ export default function createRouter(isSigned = false) {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'My Profile',
           tabBarIcon: ({color}) => (
             <Icon name="account-circle" size={24} color={color} />
           ),

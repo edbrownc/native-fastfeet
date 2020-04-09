@@ -4,7 +4,7 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const InfoCard = styled.View`
+export const InfoContainer = styled.View`
   width: 90%;
   margin-top: 10px;
   padding: 10px 0;
@@ -14,7 +14,7 @@ export const InfoCard = styled.View`
   align-self: center;
 `;
 
-export const StatusCard = styled.View`
+export const StatusContainer = styled.View`
   width: 90%;
   margin-top: 10px;
   padding: 10px 0;
@@ -24,7 +24,7 @@ export const StatusCard = styled.View`
   align-self: center;
 `;
 
-export const ActionsCard = styled.View`
+export const ActionsContainer = styled.View`
   width: 90%;
   margin-top: 10px;
   background-color: #fff;

@@ -31,30 +31,30 @@ export default function Deliveries({navigation}) {
   const courier = useSelector(state => state.auth.courier);
   const dispatch = useDispatch();
 
-  async function loadDeliveries() {
-    try {
-      let deliveriesUrl = 'activeorders';
-
-      if (!activeDeliveries) {
-        deliveriesUrl = 'deliveredorders';
-      }
-
-      const res = await api.get(`couriers/${courier.id}/${deliveriesUrl}`);
-
-      setDeliveries(res.data);
-    } catch (error) {
-      Alert.alert(
-        'Error loading deliveries',
-        'There was an issue loading your deliveries!'
-      );
-    }
-    setLoading(false);
-  }
-
   useEffect(() => {
+    async function loadDeliveries() {
+      try {
+        let deliveriesUrl = 'activeorders';
+
+        if (!activeDeliveries) {
+          deliveriesUrl = 'deliveredorders';
+        }
+
+        const res = await api.get(`couriers/${courier.id}/${deliveriesUrl}`);
+
+        setDeliveries(res.data);
+      } catch (error) {
+        Alert.alert(
+          'Error loading deliveries',
+          'There was an issue loading your deliveries!'
+        );
+      }
+      setLoading(false);
+    }
+
     setLoading(true);
     loadDeliveries();
-  }, [activeDeliveries]);
+  }, [activeDeliveries, courier]);
 
   function handleSignOut() {
     dispatch(signOut());
@@ -105,7 +105,7 @@ export default function Deliveries({navigation}) {
       ) : (
         <FlatList
           data={deliveries}
-          keyExtractor={delivery => delivery.id.toString()}
+          keyExtractor={delivery => delivery.id}
           renderItem={({item}) => (
             <DeliveryCard
               id={item.id}

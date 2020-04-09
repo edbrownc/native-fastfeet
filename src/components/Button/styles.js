@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled(RectButton)`
   height: 46px;
-  background: #82bf18;
+  background: ${props => (props.bgColor ? props.bgColor : '#82bf18')};
   border-radius: 4px;
 
   align-items: center;
