@@ -8,8 +8,9 @@ import SignIn from '~/pages/SignIn';
 import Deliveries from './pages/Deliveries';
 import Profile from './pages/Profile';
 import DeliveryInfo from './pages/DeliveryInfo';
-import DeliveryIssues from './pages/DeliveryIssues';
 import ReportIssues from './pages/ReportIssues';
+import DeliveryIssues from './pages/DeliveryIssues';
+import ConfirmDelivery from './pages/ConfirmDelivery';
 
 const AuthStack = createStackNavigator();
 const DeliveryStack = createStackNavigator();
@@ -47,11 +48,11 @@ function DeliveriesNavigator() {
         component={DeliveryIssues}
         options={{title: 'View issues'}}
       />
-      {/* <DeliveryStack.Screen
+      <DeliveryStack.Screen
         name="ConfirmDelivery"
         component={ConfirmDelivery}
         options={{title: 'Confirm delivery'}}
-      /> */}
+      />
     </DeliveryStack.Navigator>
   );
 }

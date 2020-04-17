@@ -86,7 +86,12 @@ export default function DeliverInfo({navigation, route}) {
             <Icon name="info-outline" size={20} style={{color: '#E7BA40'}} />
             <ActionButtonText>View Issues</ActionButtonText>
           </ActionButton>
-          <ActionButton lastButton>
+          <ActionButton
+            disabled={delivery.end_date != null}
+            onPress={() =>
+              navigation.navigate('ConfirmDelivery', {id: delivery.id})
+            }
+            lastButton>
             <Icon name="alarm-on" size={20} style={{color: '#7D40E7'}} />
             <ActionButtonText>Confirm Delivery</ActionButtonText>
           </ActionButton>

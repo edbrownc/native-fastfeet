@@ -25,7 +25,7 @@ export default function Profile() {
       <Avatar
         source={{
           uri: courier.avatar
-            ? `http://10.0.3.2:3333/files/${courier.avatar.path}`
+            ? `http://10.0.2.2:3333/files/${courier.avatar.path}`
             : `https://api.adorable.io/avatar/50/${courier.name}.png`,
         }}
         alt="Avatar"
