@@ -15,6 +15,9 @@ import {signOut} from '~/store/modules/auth/actions';
 export default function Profile() {
   const courier = useSelector(state => state.auth.courier);
   const dispatch = useDispatch();
+  const avatarURL = __DEV__
+    ? courier.avatar.url.replace('localhost', '10.0.2.2')
+    : courier.avatar.url;
 
   function handleLogout() {
     dispatch(signOut());
@@ -25,7 +28,7 @@ export default function Profile() {
       <Avatar
         source={{
           uri: courier.avatar
-            ? `http://10.0.2.2:3333/files/${courier.avatar.path}`
+            ? avatarURL
             : `https://api.adorable.io/avatar/50/${courier.name}.png`,
         }}
         alt="Avatar"

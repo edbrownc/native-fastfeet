@@ -3,6 +3,8 @@ import {format} from 'date-fns';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {useSelector} from 'react-redux';
+import {Alert} from 'react-native';
 import {
   Container,
   InfoContainer,
@@ -18,12 +20,37 @@ import {
   ActionButtonText,
 } from './styles';
 import DeliveriesBackground from '~/components/DeliveriesBackground';
+import api from '~/services/api';
 
 export default function DeliverInfo({navigation, route}) {
   const {delivery} = route.params;
+  const courierId = useSelector(state => state.auth.courier.id);
 
   function getFormattedDate(date) {
     return date ? format(new Date(date), 'dd/MM/yyyy') : '- - / - - / - -';
+  }
+
+  async function handlePickupDelivery() {
+    try {
+      await api.put(`/couriers/${courierId}/activeorders/${delivery.id}`, {
+        start_date: new Date(),
+      });
+
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Deliveries'}],
+      });
+
+      Alert.alert(
+        'Delivery picked up',
+        'The delivery was successfully updated!'
+      );
+    } catch (error) {
+      Alert.alert(
+        'Error picking up delivery',
+        'There was an error picking up your delivery, try again later.'
+      );
+    }
   }
 
   return (
@@ -73,6 +100,12 @@ export default function DeliverInfo({navigation, route}) {
         </StatusContainer>
         <ActionsContainer>
           <ActionButton
+            disabled={delivery.start_date}
+            onPress={handlePickupDelivery}>
+            <Icon name="time-to-leave" size={20} style={{color: '#2CA42B'}} />
+            <ActionButtonText>Pick Up Delivery</ActionButtonText>
+          </ActionButton>
+          <ActionButton
             onPress={() =>
               navigation.navigate('ReportIssues', {id: delivery.id})
             }>
@@ -87,7 +120,7 @@ export default function DeliverInfo({navigation, route}) {
             <ActionButtonText>View Issues</ActionButtonText>
           </ActionButton>
           <ActionButton
-            disabled={delivery.end_date != null}
+            disabled={delivery.end_date}
             onPress={() =>
               navigation.navigate('ConfirmDelivery', {id: delivery.id})
             }
@@ -104,6 +137,7 @@ export default function DeliverInfo({navigation, route}) {
 DeliverInfo.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
+    reset: PropTypes.func,
   }).isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({

@@ -23,14 +23,15 @@ export const IssuesList = styled.View`
 `;
 
 export const IssueContainer = styled.View`
+  height: 55px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  margin-top: 10px;
   padding: 10px;
   border: 1px solid #0000001a;
   border-radius: 5px;
+  margin-bottom: 10px;
 `;
 
 export const IssueDesc = styled.Text`

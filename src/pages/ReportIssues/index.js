@@ -16,7 +16,7 @@ export default function ReportIssues({navigation, route}) {
       setLoading(true);
 
       try {
-        await api.post(`orders/${id}/problems`, {
+        await api.post(`orders/${id}/issues`, {
           description,
         });
 

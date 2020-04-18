@@ -70,7 +70,7 @@ export const DatesContainer = styled.View`
 `;
 
 export const ActionButton = styled.TouchableOpacity`
-  width: 33%;
+  width: 25%;
   padding: 10px 0px;
   flex-direction: column;
   align-items: center;

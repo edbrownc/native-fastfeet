@@ -23,14 +23,14 @@ export default function DeliveryIssues({route}) {
   useEffect(() => {
     async function loadDeliveryIssues() {
       try {
-        const response = await api.get(`orders/${delivery_id}/problems`);
+        const response = await api.get(`orders/${delivery_id}/issues`);
 
         if (response.data.length > 0) {
           setIssues(
             response.data.map(item => {
               return {
                 ...item,
-                id: item._id,
+                id: item.id,
                 created_at: format(new Date(item.createdAt), 'dd/MM/yyyy'),
               };
             })
@@ -56,7 +56,7 @@ export default function DeliveryIssues({route}) {
   return (
     <DeliveriesBackground>
       <Container>
-        <Title>Encomenda {delivery_id}</Title>
+        <Title>Delivery {delivery_id}</Title>
         <IssuesListContainer>
           <IssuesList>
             <FlatList

@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+import PropTypes from 'prop-types';
 import {RNCamera} from 'react-native-camera';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '~/services/api';
@@ -18,8 +19,6 @@ export default function Camera({deliveryId, setImageFile}) {
       type: `image/${extension}`,
       name: `order-confirmation-${deliveryId}.${extension}`,
     });
-
-    console.tron.log(file);
 
     const response = await api.post('files', file, {
       headers: {'Content-Type': 'multipart/form-data'},
@@ -62,3 +61,8 @@ export default function Camera({deliveryId, setImageFile}) {
     </CameraView>
   );
 }
+
+Camera.propTypes = {
+  deliveryId: PropTypes.string.isRequired,
+  setImageFile: PropTypes.func.isRequired,
+};

@@ -2,10 +2,8 @@ import {RNCamera} from 'react-native-camera';
 import styled from 'styled-components';
 
 export const CameraView = styled(RNCamera)`
-  width: 90%;
-  height: 444px;
+  flex: 1;
   margin-top: 20px;
-  background-color: #fff;
   align-self: center;
   flex-direction: column;
   justify-content: flex-end;
@@ -16,7 +14,7 @@ export const CameraButton = styled.TouchableOpacity`
   border-radius: 90px;
   height: 61px;
   width: 61px;
-  align-self: center;
+  margin-bottom: 10px;
   justify-content: center;
   align-items: center;
 `;
